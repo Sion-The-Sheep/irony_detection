@@ -172,7 +172,7 @@ for q in range(5):
     print("=========================")
 
     #path_spy = "~/soturon/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
-    path_spy = "~/shuusi/data/step2/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
+    path_spy = "../data/step2/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
     #path_spy = "~/soturon/tweetdata_str_hiniku_include_spy_mask" + str(spy_pattern) + ".csv"###############################################################################################################maskの際はこっち
     df = pd.read_csv(path_spy,encoding="utf_8",names=('honbun','rep','inyou','label','new_label'),dtype=object)
     print("スパイ込みのランダムデータ数→",len(df))
@@ -229,7 +229,7 @@ for q in range(5):
     count = 0
 
     #model_name = "/home/aquamarine/sion/soturon/hozon_rp" + str(spy_pattern) + "/model_epoch2.model"
-    model_name = "/home/aquamarine/sion/shuusi/model/hozon_spy_RP"  + str(spy_pattern) + "/model_epoch2.model"
+    model_name = "../model/hozon_spy_RP"  + str(spy_pattern) + "/model_epoch2.model"
     #model_name = "/home/aquamarine/sion/soturon/hozon_rp_mask" + str(spy_pattern) + "/model_epoch2.model"########################################################################################MASK処理したデータ作成したモデルはこっち
     
     model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2).to("cuda:0")
@@ -542,7 +542,7 @@ print("とても信頼できる正例＋純正例数確認:",len(df_seirei_more_
 df_seirei = df_seirei.sample(frac=1)
 df_seirei_more_reliable = df_seirei_more_reliable.sample(frac=1)
 #df_hurei_reliable = pd.read_csv("~/soturon/tweetdata_hurei_reliable.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
-df_hurei_reliable = pd.read_csv("/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
+df_hurei_reliable = pd.read_csv("../data/step1/tweetdata_hurei_reliable.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
 
 df_hurei_reliable = df_hurei_reliable.sample(frac=1)
 

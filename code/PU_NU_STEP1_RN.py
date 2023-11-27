@@ -169,7 +169,7 @@ for q in range(5):
 
     
     #path_spy = "~/soturon/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"
-    path_spy = "~/shuusi/data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"
+    path_spy = "../data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"
 
     df = pd.read_csv(path_spy,encoding="utf_8",names=('honbun','rep','inyou','label','new_label'),dtype=object)
     print("スパイ込みのランダムデータ数→",len(df))
@@ -225,7 +225,8 @@ for q in range(5):
 
 
     #model_name = "/home/aquamarine/sion/soturon/hozon" + str(spy_pattern) + "/model_epoch2.model" 
-    model_name = "/home/aquamarine/sion/shuusi/model/hozon_spy_RN" + str(spy_pattern) + "/model_epoch2.model"
+    #model_name = "/home/aquamarine/sion/shuusi/model/hozon_spy_RN" + str(spy_pattern) + "/model_epoch2.model"
+    model_name = "../model/hozon_spy_RN" + str(spy_pattern) + "/model_epoch2.model"
     model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2).to("cuda:0")
     tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking") 
     model.eval()

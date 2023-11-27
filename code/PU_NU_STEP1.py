@@ -238,7 +238,10 @@ for q in range(5):
     #2022/12/01
     #df_hurei.to_csv("~/soturon/tweetdata_random_include_spy.csv",header=False,index=False,encoding="utf-8")
     #save_path = "~/soturon/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"
-    save_path = "~/shuusi/data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"    
+    #save_path = "~/shuusi/data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"
+    #save_path = "~/irony_detection/data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"    
+    save_path = "../data/step1/tweetdata_random_include_spy" + str(spy_pattern) + ".csv"    
+    
     df_hurei.to_csv(save_path,header=False,index=False,encoding="utf-8")
 
 

@@ -231,7 +231,7 @@ for q in range(5):
     #作成したスパイ入りランダムデータを保存
     #df_hurei.to_csv("~/soturon/tweetdata_str_hiniku_include_spy.csv",header=False,index=False,encoding="utf-8") 2022/12/05
     #save_path = "~/soturon/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
-    save_path = "~/shuusi/data/step2/tweetdata_str_hiniku_include_spy"  + str(spy_pattern) + ".csv"
+    save_path = "../data/step2/tweetdata_str_hiniku_include_spy"  + str(spy_pattern) + ".csv"
     df_hurei.to_csv(save_path,header=False,index=False,encoding="utf-8")
 
 
