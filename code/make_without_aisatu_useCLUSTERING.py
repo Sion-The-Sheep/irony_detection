@@ -156,7 +156,8 @@ ccount = 0
 count = 0
 all_num = 0
 #open_path = "tweetdata_hurei_reliable.csv"
-open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable.csv"
+#open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable.csv"
+open_path = "../data/step1/tweetdata_hurei_reliable.csv"
 
 
 main_tweet_text_lst=[]
