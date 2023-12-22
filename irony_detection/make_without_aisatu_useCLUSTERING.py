@@ -157,7 +157,7 @@ count = 0
 all_num = 0
 #open_path = "tweetdata_hurei_reliable.csv"
 #open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable.csv"
-open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable_no_zengo.csv"
+open_path = "../data/step1/tweetdata_hurei_reliable.csv"
 
 
 main_tweet_text_lst=[]
@@ -182,34 +182,258 @@ vecs = vectorizer.fit_transform(docs)
 
 count = 0
 #clusters = KMeans(n_clusters=4, random_state=0).fit_predict(vecs)
-clusters = KMeans(n_clusters=3, random_state=0).fit_predict(vecs)
+clusters = KMeans(n_clusters=2, random_state=0).fit_predict(vecs)
 
 label_lst = []
 for doc, cls in zip(docs, clusters):
   label_lst.append(cls)
-print(label_lst)
-
+#print(label_lst)
+jogai=[]
 nnnew_csv_inf = []
+nnnew_csv_inf_0 = []
+nnnew_csv_inf_1 = []
+nnnew_csv_inf_2 = []
+nnnew_csv_inf_3 = []
+
 
 with open(open_path,'r',encoding="utf-8") as f:
   test=f.readlines()
   for i in range(len(test)):
     if label_lst[i] == 0:
-      nnnew_csv_inf.append(test[i])
+      nnnew_csv_inf_0.append(test[i])
     elif label_lst[i] == 1:
-      print("LABEL1",test[i])
+      nnnew_csv_inf_1.append(test[i])
+      jogai.append(test[i])
+      #print("LABEL1",test[i])
     elif label_lst[i] == 2:
       print("LABEL2",test[i])
+      #nnnew_csv_inf_2.append(test[i])
     elif label_lst[i] == 3:
       print("LABEL3",test[i])
+      #nnnew_csv_inf_3 = []
+"""
+if len(nnnew_csv_inf_0) >= len(nnnew_csv_inf_1) and len(nnnew_csv_inf_0) >= len(nnnew_csv_inf_2):
+  nnnew_csv_inf = nnnew_csv_inf_0
+elif len(nnnew_csv_inf_1) >= len(nnnew_csv_inf_2):
+   nnnew_csv_inf = nnnew_csv_inf_1
+else:
+  nnnew_csv_inf = nnnew_csv_inf_2
+"""
+
+nnnew_csv_inf = nnnew_csv_inf_0
+
+with open("../data/step1/CLUSTERING_check.csv"  ,'w',encoding="utf-8") as f: 
+    for i in nnnew_csv_inf_0:
+       # print(i)
+        f.write(i)
+    f.write("/n")
+    f.write("#####################################################################")
+    f.write("#####################################################################")
+    for i in nnnew_csv_inf_1:
+       # print(i)
+        f.write(i)
+    f.write("/n")
+    f.write("#####################################################################")
+    f.write("#####################################################################")
+    for i in nnnew_csv_inf_2:
+       # print(i)
+        f.write(i)
+
+
+print("データ作成完了")
+
 
 
 
 #with open("tweetdata_hurei_reliable_without_aisatu_useCLUSTERING3.csv",'w',encoding="utf-8") as f:
-#with open("../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING.csv"  ,'w',encoding="utf-8") as f: 
-with open("../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING_no_zengo.csv"  ,'w',encoding="utf-8") as f: 
+with open("../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING.csv"  ,'w',encoding="utf-8") as f: 
     for i in nnnew_csv_inf:
        # print(i)
         f.write(i)
 print("データ作成完了")
 
+print("ラベル0の数：",len(nnnew_csv_inf_0))
+print("ラベル1の数：",len(nnnew_csv_inf_1))
+print("ラベル2の数：",len(nnnew_csv_inf_2))
+print("ラベル3の数：",len(nnnew_csv_inf_3))
+
+
+
+#ここからは再起処理
+for j in range(20):
+  print("再起処理開始")
+  nnew_csv_inf = []
+  ccount = 0
+  count = 0
+  all_num = 0
+  #open_path = "tweetdata_hurei_reliable.csv"
+  #open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable.csv"
+  open_path = "../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING.csv"
+
+  main_tweet_text_lst=[]
+  with open(open_path,'r',encoding="utf-8") as f:
+    test=f.readlines()
+    for moziretu in test:
+      tweet_text = moziretu.split(",")
+      main_tweet_text = tweet_text[0]
+      main_tweet_text_lst.append(main_tweet_text)
+
+  #for i in range(len(main_tweet_text_lst)):
+  #  print(main_tweet_text_lst[i])
+
+  #リスト化完了
+
+
+  docs = np.array(main_tweet_text_lst)
+  vectorizer = TfidfVectorizer(use_idf=True, token_pattern=u'(?u)\\b\\w+\\b')
+  vecs = vectorizer.fit_transform(docs)
+
+  count = 0
+  #clusters = KMeans(n_clusters=4, random_state=0).fit_predict(vecs)
+  clusters = KMeans(n_clusters=2, random_state=0).fit_predict(vecs)
+
+  label_lst = []
+  for doc, cls in zip(docs, clusters):
+    label_lst.append(cls)
+  #print(label_lst)
+
+  nnnew_csv_inf = []
+  nnnew_csv_inf_0 = []
+  nnnew_csv_inf_1 = []
+  nnnew_csv_inf_2 = []
+  nnnew_csv_inf_3 = []
+
+
+  with open(open_path,'r',encoding="utf-8") as f:
+    test=f.readlines()
+    for i in range(len(test)):
+      if label_lst[i] == 0:
+        nnnew_csv_inf_0.append(test[i])
+      elif label_lst[i] == 1:
+        nnnew_csv_inf_1.append(test[i])
+        #jogai.append(test[i])
+        #print("LABEL1",test[i])
+      elif label_lst[i] == 2:
+        print("LABEL2",test[i])
+        #nnnew_csv_inf_2.append(test[i])
+      elif label_lst[i] == 3:
+        print("LABEL3",test[i])
+        #nnnew_csv_inf_3 = []
+
+  if len(nnnew_csv_inf_0)<len(nnnew_csv_inf_1):
+     print("n回目の再起で終了",j)
+     break
+  else:
+    for i in range(len(nnnew_csv_inf_1)):
+       jogai.append(nnnew_csv_inf_1[i])
+    """
+    if len(nnnew_csv_inf_0) >= len(nnnew_csv_inf_1) and len(nnnew_csv_inf_0) >= len(nnnew_csv_inf_2):
+      nnnew_csv_inf = nnnew_csv_inf_0
+    elif len(nnnew_csv_inf_1) >= len(nnnew_csv_inf_2):
+      nnnew_csv_inf = nnnew_csv_inf_1
+    else:
+      nnnew_csv_inf = nnnew_csv_inf_2
+    """
+    nnnew_csv_inf = nnnew_csv_inf_0
+
+    with open("../data/step1/CLUSTERING_check.csv"  ,'w',encoding="utf-8") as f: 
+        for i in nnnew_csv_inf_0:
+          # print(i)
+            f.write(i)
+        f.write("/n")
+        f.write("#####################################################################")
+        f.write("#####################################################################")
+        for i in nnnew_csv_inf_1:
+          # print(i)
+            f.write(i)
+        f.write("/n")
+        f.write("#####################################################################")
+        f.write("#####################################################################")
+        for i in nnnew_csv_inf_2:
+          # print(i)
+            f.write(i)
+
+
+    print("データ作成完了")
+
+
+
+    #with open("tweetdata_hurei_reliable_without_aisatu_useCLUSTERING3.csv",'w',encoding="utf-8") as f:
+    with open("../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING.csv"  ,'w',encoding="utf-8") as f: 
+        for i in nnnew_csv_inf:
+          # print(i)
+            f.write(i)
+    print("n回目のデータ作成完了",j)
+
+    print("ラベル0の数：",len(nnnew_csv_inf_0))
+    print("ラベル1の数：",len(nnnew_csv_inf_1))
+    print("ラベル2の数：",len(nnnew_csv_inf_2))
+    print("ラベル3の数：",len(nnnew_csv_inf_3))
+
+with open("../data/step1/CLUSTERING_check_jogai.csv"  ,'w',encoding="utf-8") as f: 
+      for i in jogai:
+        # print(i)
+          f.write(i)
+
+#########################################################################################################################################################
+
+# print("ここからコンテキストなしに関するデータ成形")
+
+
+# nnew_csv_inf = []
+# ccount = 0
+# count = 0
+# all_num = 0
+# #open_path = "tweetdata_hurei_reliable.csv"
+# open_path = "/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable_no_zengo.csv"
+
+
+# main_tweet_text_lst=[]
+# with open(open_path,'r',encoding="utf-8") as f:
+#   test=f.readlines()
+#   for moziretu in test:
+#     tweet_text = moziretu.split(",")
+#     main_tweet_text = tweet_text[0]
+#     main_tweet_text_lst.append(main_tweet_text)
+
+# #for i in range(len(main_tweet_text_lst)):
+# #  print(main_tweet_text_lst[i])
+
+# #リスト化完了
+
+
+# docs = np.array(main_tweet_text_lst)
+# vectorizer = TfidfVectorizer(use_idf=True, token_pattern=u'(?u)\\b\\w+\\b')
+# vecs = vectorizer.fit_transform(docs)
+
+# count = 0
+# #clusters = KMeans(n_clusters=4, random_state=0).fit_predict(vecs)
+# clusters = KMeans(n_clusters=3, random_state=0).fit_predict(vecs)
+
+# label_lst = []
+# for doc, cls in zip(docs, clusters):
+#   label_lst.append(cls)
+# print(label_lst)
+
+# nnnew_csv_inf = []
+
+# with open(open_path,'r',encoding="utf-8") as f:
+#   test=f.readlines()
+#   for i in range(len(test)):
+#     if label_lst[i] == 0:
+#       nnnew_csv_inf.append(test[i])
+#     elif label_lst[i] == 1:
+#       print("LABEL1",test[i])
+#     elif label_lst[i] == 2:
+#       print("LABEL2",test[i])
+#     elif label_lst[i] == 3:
+#       print("LABEL3",test[i])
+
+
+
+# #with open("tweetdata_hurei_reliable_without_aisatu_useCLUSTERING3.csv",'w',encoding="utf-8") as f:
+# with open("../data/step1/tweetdata_hurei_reliable_without_aisatu_useCLUSTERING_no_zengo.csv"  ,'w',encoding="utf-8") as f: 
+#     for i in nnnew_csv_inf:
+#        # print(i)
+#         f.write(i)
+# print("データ作成完了")

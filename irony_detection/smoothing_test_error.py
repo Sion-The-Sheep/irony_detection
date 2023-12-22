@@ -172,7 +172,7 @@ for q in range(5):
     print("=========================")
 
     #path_spy = "~/soturon/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
-    path_spy = "~/shuusi/data/step2/tweetdata_str_hiniku_include_spy_no_zengo" + str(spy_pattern) + ".csv"
+    path_spy = "../data/step2/tweetdata_str_hiniku_include_spy" + str(spy_pattern) + ".csv"
     #path_spy = "~/soturon/tweetdata_str_hiniku_include_spy_mask" + str(spy_pattern) + ".csv"###############################################################################################################maskの際はこっち
     df = pd.read_csv(path_spy,encoding="utf_8",names=('honbun','rep','inyou','label','new_label'),dtype=object)
     print("スパイ込みのランダムデータ数→",len(df))
@@ -229,14 +229,14 @@ for q in range(5):
     count = 0
 
     #model_name = "/home/aquamarine/sion/soturon/hozon_rp" + str(spy_pattern) + "/model_epoch2.model"
-    model_name = "/home/aquamarine/sion/shuusi/model/hozon_spy_RP_no_zengo"  + str(spy_pattern) + "/model_epoch2.model"
+    model_name = "../model/hozon_spy_RP"  + str(spy_pattern) + "/model_epoch2.model"
     #model_name = "/home/aquamarine/sion/soturon/hozon_rp_mask" + str(spy_pattern) + "/model_epoch2.model"########################################################################################MASK処理したデータ作成したモデルはこっち
     
     model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2).to("cuda:0")
     tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking") 
     model.eval()
-    r_encorded =  tokenizer(test, padding=True, return_tensors='pt')
-    #r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
+    #r_encorded =  tokenizer(test, padding=True, return_tensors='pt')
+    r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
 
     r_ds = TensorDataset(r_encorded['input_ids'].to("cuda:0"), r_encorded['attention_mask'].to("cuda:0"),r_encorded['token_type_ids'].to("cuda:0"))#####
     r_dl = DataLoader(r_ds, batch_size=1) # バッチサイズを指定
@@ -316,8 +316,8 @@ for q in range(5):
     model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2).to("cuda:0")
     tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking")
     model.eval()
-    r_encorded =  tokenizer(test, padding=True, return_tensors='pt')
-    #r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
+    #r_encorded =  tokenizer(test, padding=True, return_tensors='pt')
+    r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
     r_ds = TensorDataset(r_encorded['input_ids'].to("cuda:0"), r_encorded['attention_mask'].to("cuda:0"),r_encorded['token_type_ids'].to("cuda:0"))#####
     r_dl = DataLoader(r_ds, batch_size=1) # バッチサイズを指定
     sf = torch.nn.Softmax(dim=1)
@@ -498,12 +498,12 @@ print("信頼できる正例作成完了")
 #作成した信頼できる正例データを保存
 #df_hurei_reliable.to_csv("~/soturon/tweetdata_seirei_reliable.csv",header=False,index=False,encoding="utf-8")
 #df_hurei_reliable.to_csv("/home/aquamarine/sion/shuusi/data/step2/tweetdata_seirei_reliable.csv",header=False,index=False,encoding="utf-8")
-df_hurei_reliable.to_csv("../data/step2/tweetdata_seirei_reliable_no_zengo.csv",header=False,index=False,encoding="utf-8")
+df_hurei_reliable.to_csv("../data/step2/tweetdata_seirei_reliable.csv",header=False,index=False,encoding="utf-8")
 
 #作成したとても信頼できる正例データを保存                                                                                                                                                                                                                                         
 #df_hurei_more_reliable.to_csv("~/soturon/tweetdata_seirei_more_reliable.csv",header=False,index=False,encoding="utf-8")
 #df_hurei_more_reliable.to_csv("/home/aquamarine/sion/shuusi/data/step2/tweetdata_seirei_more_reliable.csv",header=False,index=False,encoding="utf-8")
-df_hurei_more_reliable.to_csv("../data/step2/tweetdata_seirei_more_reliable_no_zengo.csv",header=False,index=False,encoding="utf-8")
+df_hurei_more_reliable.to_csv("../data/step2/tweetdata_seirei_more_reliable.csv",header=False,index=False,encoding="utf-8")
 
 
 
@@ -542,7 +542,7 @@ print("とても信頼できる正例＋純正例数確認:",len(df_seirei_more_
 df_seirei = df_seirei.sample(frac=1)
 df_seirei_more_reliable = df_seirei_more_reliable.sample(frac=1)
 #df_hurei_reliable = pd.read_csv("~/soturon/tweetdata_hurei_reliable.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
-df_hurei_reliable = pd.read_csv("/home/aquamarine/sion/shuusi/data/step1/tweetdata_hurei_reliable_no_zengo.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
+df_hurei_reliable = pd.read_csv("../data/step1/tweetdata_hurei_reliable.csv",encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)
 
 df_hurei_reliable = df_hurei_reliable.sample(frac=1)
 
@@ -933,8 +933,14 @@ for i in range(5):
   exec("x_train2 = train_rep_list_{}".format(num))
   exec("x_train3 = train_inyou_list_{}".format(num))
   exec("y = train_label_list_{}".format(num))
+  print("QQQQQQQQQQQQQQQQQQQ")
+  print(y)
   y_train = torch.tensor(y, dtype=torch.int64)
-  
+
+  print(y_train)
+  print("QQQQQQQQQQQQQQQQQQQ")
+  exit()
+
   #exec("test = test_honbun_list_{}".format(num))
   #exec("test2 = test_rep_list_{}".format(num))
   #exec("test3 = test_inyou_list_{}".format(num))
@@ -946,13 +952,13 @@ for i in range(5):
 
 
   #save_path = "hozon_RN_RP" + str(num)
-  save_path = "../model/hozon_sarcasm_detection_PU_NU_no_zengo" + str(num)
+  save_path = "../model/hozon_sarcasm_detection_PU_NU" + str(num)
 
   # 学習                                                                                                                                                                                                                                                                           
   model = BertForSequenceClassification.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=2).to("cuda:0")
   tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking")
-  x_train_encorded = tokenizer(x_train, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
-  #x_train_encorded = tokenizer(x_train,x_train2,x_train3, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
+  #x_train_encorded = tokenizer(x_train, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
+  x_train_encorded = tokenizer(x_train,x_train2,x_train3, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
   #train_ds = TensorDataset(x_train_encorded['input_ids'].to("cuda:0"), x_train_encorded['attention_mask'].to("cuda:0"), y_train.to("cuda:0"))#トークンタイプIDSで1文か2文か差別化                                                                                                
   train_ds = TensorDataset(x_train_encorded['input_ids'].to("cuda:0"), x_train_encorded['attention_mask'].to("cuda:0"), x_train_encorded['token_type_ids'].to("cuda:0"),y_train.to("cuda:0"))#トークンタイプIDSで1文か2文か差別化                                                  
 
@@ -979,8 +985,8 @@ for i in range(5):
 
   #評価                                                                                                                                                                                                            
   model.eval()
-  r_encorded =  tokenizer(test, padding=True, return_tensors='pt')                                                                                                                                                                                                               
-  #r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
+  #r_encorded =  tokenizer(test, padding=True, return_tensors='pt')                                                                                                                                                                                                               
+  r_encorded =  tokenizer(test,test2,test3,padding=True, return_tensors='pt')
   r_ds = TensorDataset(r_encorded['input_ids'].to("cuda:0"), r_encorded['attention_mask'].to("cuda:0"),r_encorded['token_type_ids'].to("cuda:0"))#####                                                                                                                            
   r_dl = train_dl = DataLoader(r_ds, batch_size=1) # バッチサイズを指定                                                                                                                                                                                                           
   sf = torch.nn.Softmax(dim=1)

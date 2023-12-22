@@ -1,0 +1,12 @@
+{
+    "path10MC":"~/tweetdata/nakahigasi_seirei_NakaiLabeling_1.csv",
+    "path11MC":"~/tweetdata/tweet_data_hurei_thouhuku_URL_RT_OK.csv",
+    "path8_BIG_MC":"~/tweetdata/seirei_NakaiLabeling_1.csv",
+    "path9_BIG_MC":"~/tweetdata/tweet_data_hankyousi_random_BIG_more_clean.csv",
+    "description":"正例と負例の割合を変えて実行",
+    "spy_pattern_num":5,
+    "spy_hyperparameter_a":15,
+    "spy_hyperparameter_b_step1":15,
+    "spy_hyperparameter_b_step2":0,
+    "number_of_leaning_data_pattern":5
+}

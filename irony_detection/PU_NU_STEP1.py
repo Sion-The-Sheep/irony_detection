@@ -131,26 +131,23 @@ path12_BIG_MC_4 = "~/tweetdata/tweet_data_hankyousi_str_hiniku_BIG_more_clean_re
 df_seirei = pd.read_csv(path8_BIG_MC,encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)#####################################################################
 df_random = pd.read_csv(path9_BIG_MC,encoding="utf_8",names=('honbun','rep','inyou','label'),dtype=object)#####################################################################
 
-#print("df_random")
-#print(df_seirei["label"])
-#print(df_random["label"])
 
 
-def slice_df(df: pd.DataFrame, size: int) -> list:
-    """pandas.DataFrameを行数sizeずつにスライスしてリストに入れて返す"""
-    previous_index = list(df.index)
-    df = df.reset_index(drop=True)
-    n = df.shape[0]
-    list_indices = [(i, i+size) for i in range(0, n, size)]
-    df_indices = [(i, i+size-1) for i in range(0, n, size)]
-    sliced_dfs = []
-    for i in range(len(df_indices)):
-        begin_i, end_i = df_indices[i][0], df_indices[i][1]
-        begin_l, end_l = list_indices[i][0], list_indices[i][1]
-        df_i = df.loc[begin_i:end_i, :]
-        df_i.index = previous_index[begin_l:end_l]
-        sliced_dfs += [df_i]
-    return sliced_dfs
+# def slice_df(df: pd.DataFrame, size: int) -> list:
+#     """pandas.DataFrameを行数sizeずつにスライスしてリストに入れて返す"""
+#     previous_index = list(df.index)
+#     df = df.reset_index(drop=True)
+#     n = df.shape[0]
+#     list_indices = [(i, i+size) for i in range(0, n, size)]
+#     df_indices = [(i, i+size-1) for i in range(0, n, size)]
+#     sliced_dfs = []
+#     for i in range(len(df_indices)):
+#         begin_i, end_i = df_indices[i][0], df_indices[i][1]
+#         begin_l, end_l = list_indices[i][0], list_indices[i][1]
+#         df_i = df.loc[begin_i:end_i, :]
+#         df_i.index = previous_index[begin_l:end_l]
+#         sliced_dfs += [df_i]
+#     return sliced_dfs
 
 
 
@@ -308,6 +305,8 @@ for q in range(5):
     """
     #2022/12/01
     save_path = "../model/hozon_spy_RN" + str(spy_pattern)
+
+    
 
     # 学習
     model = BertForSequenceClassification.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=2).to("cuda:0")
