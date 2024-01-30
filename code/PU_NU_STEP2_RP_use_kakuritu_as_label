@@ -530,7 +530,7 @@ tensor_key_num = important_rate
 
 RPtensor_list=[]
 spy_tensor_list=[]
-df = df_hurei_more_reliable
+df = df_hurei_reliable
 
 df = df.applymap(str)
 df['label'] = df['label'].astype('int')
@@ -611,7 +611,7 @@ print(smoothing_label_lst)
 #df_hurei_reliable.loc[0:len(df_hurei_reliable),"label"] = 1
 #df_hurei_more_reliable.loc[0:len(df_hurei_more_reliable),"label"] = 1
 
-df_hurei_reliable = pd.DataFrame((zip(honbun_lst,rep_lst,inyou_lst ,label_lst)),columns = ["honbun","rep","inyou","label"])
+df_hurei_reliable = pd.DataFrame((zip(honbun_lst,rep_lst,inyou_lst ,smoothing_label_lst)),columns = ["honbun","rep","inyou","label"])
 
 
 
@@ -623,7 +623,7 @@ print(df_hurei_reliable)
 print(df_hurei_more_reliable)
 print("↑ラベルが２じゃなくて確率になってるか確認")
 
-exit()###############
+
  
 #信頼できる正例データと純正例データを結合
 #ここで再び正例と負例の意味するところが逆転、通常通りになる
@@ -762,6 +762,7 @@ df_hurei_19 = df_hurei_19.applymap(str)
 df_hurei_20 = df_hurei_20.applymap(str)
 
 
+
 df_seirei_more_reliable = df_seirei_more_reliable.applymap(str)
 df_more_hurei_1 = df_more_hurei_1.applymap(str)
 df_more_hurei_2 = df_more_hurei_2.applymap(str)
@@ -790,27 +791,49 @@ df_more_hurei_20 = df_more_hurei_20.applymap(str)
 
 
 
-df_seirei['label'] = df_seirei['label'].astype('int')
-df_hurei_1['label'] = df_hurei_1['label'].astype('int')
-df_hurei_2['label'] = df_hurei_2['label'].astype('int')
-df_hurei_3['label'] = df_hurei_3['label'].astype('int')
-df_hurei_4['label'] = df_hurei_4['label'].astype('int')
-df_hurei_5['label'] = df_hurei_5['label'].astype('int')
-df_hurei_6['label'] = df_hurei_6['label'].astype('int')
-df_hurei_7['label'] = df_hurei_7['label'].astype('int')
-df_hurei_8['label'] = df_hurei_8['label'].astype('int')
-df_hurei_9['label'] = df_hurei_9['label'].astype('int')
-df_hurei_10['label'] = df_hurei_10['label'].astype('int')
-df_hurei_11['label'] = df_hurei_11['label'].astype('int')
-df_hurei_12['label'] = df_hurei_12['label'].astype('int')
-df_hurei_13['label'] = df_hurei_13['label'].astype('int')
-df_hurei_14['label'] = df_hurei_14['label'].astype('int')
-df_hurei_15['label'] = df_hurei_15['label'].astype('int')
-df_hurei_16['label'] = df_hurei_16['label'].astype('int')
-df_hurei_17['label'] = df_hurei_17['label'].astype('int')
-df_hurei_18['label'] = df_hurei_18['label'].astype('int')
-df_hurei_19['label'] = df_hurei_19['label'].astype('int')
-df_hurei_20['label'] = df_hurei_20['label'].astype('int')
+# df_seirei['label'] = df_seirei['label'].astype('int')
+# df_hurei_1['label'] = df_hurei_1['label'].astype('int')
+# df_hurei_2['label'] = df_hurei_2['label'].astype('int')
+# df_hurei_3['label'] = df_hurei_3['label'].astype('int')
+# df_hurei_4['label'] = df_hurei_4['label'].astype('int')
+# df_hurei_5['label'] = df_hurei_5['label'].astype('int')
+# df_hurei_6['label'] = df_hurei_6['label'].astype('int')
+# df_hurei_7['label'] = df_hurei_7['label'].astype('int')
+# df_hurei_8['label'] = df_hurei_8['label'].astype('int')
+# df_hurei_9['label'] = df_hurei_9['label'].astype('int')
+# df_hurei_10['label'] = df_hurei_10['label'].astype('int')
+# df_hurei_11['label'] = df_hurei_11['label'].astype('int')
+# df_hurei_12['label'] = df_hurei_12['label'].astype('int')
+# df_hurei_13['label'] = df_hurei_13['label'].astype('int')
+# df_hurei_14['label'] = df_hurei_14['label'].astype('int')
+# df_hurei_15['label'] = df_hurei_15['label'].astype('int')
+# df_hurei_16['label'] = df_hurei_16['label'].astype('int')
+# df_hurei_17['label'] = df_hurei_17['label'].astype('int')
+# df_hurei_18['label'] = df_hurei_18['label'].astype('int')
+# df_hurei_19['label'] = df_hurei_19['label'].astype('int')
+# df_hurei_20['label'] = df_hurei_20['label'].astype('int')
+
+df_seirei['label'] = df_seirei['label'].astype('float')
+df_hurei_1['label'] = df_hurei_1['label'].astype('float')
+df_hurei_2['label'] = df_hurei_2['label'].astype('float')
+df_hurei_3['label'] = df_hurei_3['label'].astype('float')
+df_hurei_4['label'] = df_hurei_4['label'].astype('float')
+df_hurei_5['label'] = df_hurei_5['label'].astype('float')
+df_hurei_6['label'] = df_hurei_6['label'].astype('float')
+df_hurei_7['label'] = df_hurei_7['label'].astype('float')
+df_hurei_8['label'] = df_hurei_8['label'].astype('float')
+df_hurei_9['label'] = df_hurei_9['label'].astype('float')
+df_hurei_10['label'] = df_hurei_10['label'].astype('float')
+df_hurei_11['label'] = df_hurei_11['label'].astype('float')
+df_hurei_12['label'] = df_hurei_12['label'].astype('float')
+df_hurei_13['label'] = df_hurei_13['label'].astype('float')
+df_hurei_14['label'] = df_hurei_14['label'].astype('float')
+df_hurei_15['label'] = df_hurei_15['label'].astype('float')
+df_hurei_16['label'] = df_hurei_16['label'].astype('float')
+df_hurei_17['label'] = df_hurei_17['label'].astype('float')
+df_hurei_18['label'] = df_hurei_18['label'].astype('float')
+df_hurei_19['label'] = df_hurei_19['label'].astype('float')
+df_hurei_20['label'] = df_hurei_20['label'].astype('float')
 
 df_seirei_more_reliable['label'] = df_seirei_more_reliable['label'].astype('int')
 df_more_hurei_1['label'] = df_more_hurei_1['label'].astype('int')
@@ -1035,8 +1058,13 @@ for i in range(5):
   exec("x_train2 = train_rep_list_{}".format(num))
   exec("x_train3 = train_inyou_list_{}".format(num))
   exec("y = train_label_list_{}".format(num))
-  y_train = torch.tensor(y, dtype=torch.int64)
-  
+
+  #y_train = torch.tensor(y, dtype=torch.int64)
+  y_train = torch.tensor(y, dtype=torch.float32)
+
+  print("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ")
+  print(y)
+  print("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ")
   #exec("test = test_honbun_list_{}".format(num))
   #exec("test2 = test_rep_list_{}".format(num))
   #exec("test3 = test_inyou_list_{}".format(num))
@@ -1051,7 +1079,7 @@ for i in range(5):
   save_path = "../model/hozon_sarcasm_detection_PU_NU" + str(num)
 
   # 学習                                                                                                                                                                                                                                                                           
-  model = BertForSequenceClassification.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=2).to("cuda:0")
+  model = BertForSequenceClassification.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=1).to("cuda:0")
   tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking")
   #x_train_encorded = tokenizer(x_train, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
   x_train_encorded = tokenizer(x_train,x_train2,x_train3, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
@@ -1071,6 +1099,7 @@ for i in range(5):
       outputs = model(input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, labels=y)
       loss = outputs.loss
       loss.backward()
+      #print("loss",loss)
       optimizer.step()
       
     out_path = save_path + "/model_epoch{}.model".format(epoch)
@@ -1087,23 +1116,46 @@ for i in range(5):
   r_dl = train_dl = DataLoader(r_ds, batch_size=1) # バッチサイズを指定                                                                                                                                                                                                           
   sf = torch.nn.Softmax(dim=1)
   result = []
+  yosoku_kakuritu = []
   for input_ids, attention_mask,token_type_ids in r_dl:
-    r_classification = model(input_ids, attention_mask = attention_mask,token_type_ids=token_type_ids)
-    #print("r_classification",r_classification)                                                                                                                                                                                                                                   
-    r_soft = sf(r_classification.logits)
-    #print("r_soft",r_soft)                                                                                                                                                                                                                                                       
-    r_zero_one = torch.argmax(r_soft)
-    #print("r_zero_one",r_zero_one)                                                                                                                                                                                                                                               
-    result.append(r_zero_one)
-  #print(result)
+        
+        r_classification = model(input_ids, attention_mask = attention_mask,token_type_ids=token_type_ids)
+        #print("r_classification",r_classification)
+        print("r_classification.logits:", float(r_classification.logits.item()))
+        yosoku_kakuritu.append(r_classification.logits.item())                                                                                                                                                                                                                                   
+        #r_soft = sf(r_classification.logits)
+        #print("r_soft",r_soft)                                                                                                                                                                                                                                                       
+        #r_zero_one = torch.argmax(r_soft)
+        #print("r_zero_one",r_zero_one) 
+                                                                                                                                                                                                                                                      
+        #result.append(r_zero_one.to("cpu")) 
+
+        #yosoku_kakuritu.append(r_soft.to("cpu"))
+        # probs = torch.nn.functional.softmax(r_soft, dim=-1)
+        # probabilities = probs[0].tolist()
+        # yosoku_kakuritu.append(probabilities)
+
+    
+  print("出力確認＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠")
+  print("yosoku_kakuritu",yosoku_kakuritu)
+  print("出力確認＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠")  
+
+
+
   print("----------------------------------------")
+  for i in range(len(yosoku_kakuritu)):
+      prom = yosoku_kakuritu[i]
+      if prom >= 0.5:
+          result.append(int(1))
+      else:
+          result.append(int(0))
+  print("result",result)
   TP = 0
   FP = 0
   TN = 0
   FN = 0
   seikaisu = 0
   huseikaisu = 0
-
 
   
   #ここでは皮肉文であることをpositiveとする                                                                                                                                                                                                                                        
@@ -1140,6 +1192,8 @@ for i in range(5):
   moziretu = str(num) + "回目の学習結果"
   print(moziretu)
   print("==============================================")
+
+  exit()
 
 
 

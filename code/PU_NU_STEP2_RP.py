@@ -953,7 +953,7 @@ for i in range(5):
   tokenizer = BertTokenizer.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking")
   #x_train_encorded = tokenizer(x_train, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
   x_train_encorded = tokenizer(x_train,x_train2,x_train3, padding=True, return_tensors='pt')#ここにリスト型で学習データを入力する
-  #train_ds = TensorDataset(x_train_encorded['input_ids'].to("cuda:0"), x_train_encorded['attention_mask'].to("cuda:0"), y_train.to("cuda:0"))#トークンタイプIDSで1文か2文か差別化                                                                                                
+  #train_ds = TensorDataset(x_train_encorded['input_ids'].to("cuda:0"), x_train_encorded['attention_mask'].to("cuda:0"), y_train.to("cuda:0"))#トークンタイプIDSで1文irony_detectionか2文か差別化                                                                                                
   train_ds = TensorDataset(x_train_encorded['input_ids'].to("cuda:0"), x_train_encorded['attention_mask'].to("cuda:0"), x_train_encorded['token_type_ids'].to("cuda:0"),y_train.to("cuda:0"))#トークンタイプIDSで1文か2文か差別化                                                  
 
   from tqdm import tqdm
@@ -969,6 +969,7 @@ for i in range(5):
       outputs = model(input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, labels=y)
       loss = outputs.loss
       loss.backward()
+      print("loss",loss)
       optimizer.step()
       
     out_path = save_path + "/model_epoch{}.model".format(epoch)
@@ -989,7 +990,7 @@ for i in range(5):
     r_classification = model(input_ids, attention_mask = attention_mask,token_type_ids=token_type_ids)
     #print("r_classification",r_classification)                                                                                                                                                                                                                                   
     r_soft = sf(r_classification.logits)
-    #print("r_soft",r_soft)                                                                                                                                                                                                                                                       
+    print("r_soft",r_soft)                                                                                                                                                                                                                                                       
     r_zero_one = torch.argmax(r_soft)
     #print("r_zero_one",r_zero_one)                                                                                                                                                                                                                                               
     result.append(r_zero_one)
@@ -1038,6 +1039,7 @@ for i in range(5):
   moziretu = str(num) + "回目の学習結果"
   print(moziretu)
   print("==============================================")
+  exit()
 
 
 
